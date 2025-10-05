@@ -1,0 +1,12 @@
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\bin\Debug\net8.0\Business-InfoTransito.deps.json
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\bin\Debug\net8.0\Business-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\bin\Debug\net8.0\Business-InfoTransito.pdb
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.GeneratedMSBuildEditorConfig.editorconfig
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.AssemblyInfoInputs.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.AssemblyInfo.cs
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.csproj.CoreCompileInputs.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\refint\Business-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.pdb
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\ref\Business-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.csproj.AssemblyReference.cache

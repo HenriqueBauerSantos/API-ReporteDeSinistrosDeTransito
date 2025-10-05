@@ -1,0 +1,54 @@
+[
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "GetAll",
+    "RelativePath": "sinistros",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "Add",
+    "RelativePath": "sinistros",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sinistroDto",
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "GetById",
+    "RelativePath": "sinistros/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

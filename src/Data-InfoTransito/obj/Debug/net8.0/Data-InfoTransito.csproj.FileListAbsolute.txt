@@ -1,0 +1,17 @@
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Data-InfoTransito.deps.json
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Data-InfoTransito.runtimeconfig.json
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Data-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Data-InfoTransito.pdb
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Business-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\bin\Debug\net8.0\Business-InfoTransito.pdb
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.csproj.AssemblyReference.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.GeneratedMSBuildEditorConfig.editorconfig
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.AssemblyInfoInputs.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.AssemblyInfo.cs
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.csproj.CoreCompileInputs.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-Inf.99B17224.Up2Date
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\refint\Data-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.pdb
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.genruntimeconfig.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\ref\Data-InfoTransito.dll

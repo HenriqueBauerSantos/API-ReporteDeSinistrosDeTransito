@@ -1,0 +1,6 @@
+@Api_InfoTransito_HostAddress = http://localhost:5033
+
+GET {{Api_InfoTransito_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

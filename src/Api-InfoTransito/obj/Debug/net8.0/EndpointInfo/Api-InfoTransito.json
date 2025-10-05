@@ -1,0 +1,410 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Api-InfoTransito",
+    "version": "1.0"
+  },
+  "paths": {
+    "/sinistros": {
+      "get": {
+        "tags": [
+          "Sinistro"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sinistro"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SinistroDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SinistroDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SinistroDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sinistros/{id}": {
+      "get": {
+        "tags": [
+          "Sinistro"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PersonAddressDto": {
+        "required": [
+          "cep",
+          "city",
+          "district",
+          "number",
+          "road",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "road": {
+            "maxLength": 200,
+            "minLength": 2,
+            "type": "string"
+          },
+          "number": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "complement": {
+            "type": "string",
+            "nullable": true
+          },
+          "cep": {
+            "maxLength": 8,
+            "minLength": 8,
+            "type": "string"
+          },
+          "district": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 200,
+            "minLength": 2,
+            "type": "string"
+          },
+          "state": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "personId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonDto": {
+        "required": [
+          "birthDate",
+          "cnh",
+          "cpf",
+          "gender",
+          "name",
+          "phone",
+          "rg"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 2,
+            "type": "string"
+          },
+          "birthDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "gender": {
+            "type": "boolean"
+          },
+          "cpf": {
+            "maxLength": 11,
+            "minLength": 11,
+            "type": "string"
+          },
+          "rg": {
+            "maxLength": 9,
+            "minLength": 9,
+            "type": "string"
+          },
+          "cnh": {
+            "maxLength": 10,
+            "minLength": 10,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 20,
+            "minLength": 3,
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/PersonAddressDto"
+          },
+          "sinistroId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SinistroAddressDto": {
+        "required": [
+          "cep",
+          "city",
+          "district",
+          "latitude",
+          "longitude",
+          "number",
+          "road",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "road": {
+            "maxLength": 200,
+            "minLength": 2,
+            "type": "string"
+          },
+          "number": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "complement": {
+            "type": "string",
+            "nullable": true
+          },
+          "cep": {
+            "maxLength": 8,
+            "minLength": 8,
+            "type": "string"
+          },
+          "district": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 200,
+            "minLength": 2,
+            "type": "string"
+          },
+          "state": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "sinistroId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SinistroDto": {
+        "required": [
+          "groundType",
+          "injuredPeople",
+          "roadPavementType",
+          "roadType",
+          "sinistroDescription",
+          "sinistroType",
+          "weather"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "injuredPeople": {
+            "type": "boolean"
+          },
+          "sinistroType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roadPavementType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roadType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groundType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weather": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "peopleEnvolved": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonDto"
+            },
+            "nullable": true
+          },
+          "vehiclesEnvolved": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleDto"
+            },
+            "nullable": true
+          },
+          "sinistroAddress": {
+            "$ref": "#/components/schemas/SinistroAddressDto"
+          },
+          "sinistroDescription": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TypeVehicle": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "VehicleDto": {
+        "required": [
+          "brand",
+          "carLisencePlate",
+          "color",
+          "manufacturingYear",
+          "model",
+          "typeVehicle"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "carLisencePlate": {
+            "maxLength": 7,
+            "minLength": 7,
+            "type": "string"
+          },
+          "brand": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "model": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "manufacturingYear": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "color": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "typeVehicle": {
+            "$ref": "#/components/schemas/TypeVehicle"
+          },
+          "sinistroId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "personId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
