@@ -60,15 +60,12 @@ public class SinistroService : BaseService, ISinistroService
         };
 
         SinistroToAdd.SinistroAddress.SinistroRegister = SinistroToAdd;
-        SinistroToAdd.SinistroAddress.SinistroId = SinistroToAdd.Id;
-
-        
+        SinistroToAdd.SinistroAddress.SinistroId = SinistroToAdd.Id;        
         
         foreach (var item in SinistroToAdd.VehiclesEnvolved)
         {
             item.SinistroId = SinistroToAdd.Id;
             item.Sinistro = SinistroToAdd;
-
         }
             
         foreach (var item in SinistroToAdd.PeopleEnvolved)
@@ -76,8 +73,6 @@ public class SinistroService : BaseService, ISinistroService
             item.SinistroID = SinistroToAdd.Id;
             item.Sinistro = SinistroToAdd;
         }
-            
-
 
         await _sinistroRepository.Add(SinistroToAdd);
     }

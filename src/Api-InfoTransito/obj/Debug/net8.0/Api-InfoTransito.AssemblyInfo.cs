@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1420b37c449d637371eb5b33c1cc114eb9ed7ef7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

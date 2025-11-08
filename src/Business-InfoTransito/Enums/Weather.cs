@@ -2,7 +2,8 @@
 
 public enum Weather
 {
-    Chuva = 0,
+    NaoInformado = 0,
+    Chuva,
     Nublado,
     Bom,
     Neblina

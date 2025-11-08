@@ -207,11 +207,11 @@ namespace Data_InfoTransito.Migrations
 
                     b.Property<string>("CNH")
                         .IsRequired()
-                        .HasColumnType("varchar(10)");
+                        .HasColumnType("varchar(13)");
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasColumnType("varchar(11)");
+                        .HasColumnType("varchar(13)");
 
                     b.Property<bool?>("Gender")
                         .IsRequired()
@@ -227,7 +227,7 @@ namespace Data_InfoTransito.Migrations
 
                     b.Property<string>("RG")
                         .IsRequired()
-                        .HasColumnType("varchar(9)");
+                        .HasColumnType("varchar(10)");
 
                     b.Property<Guid>("SinistroID")
                         .HasColumnType("uniqueidentifier");

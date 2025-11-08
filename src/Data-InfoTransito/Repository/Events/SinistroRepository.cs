@@ -29,4 +29,15 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .SelectMany(x => x.VehiclesEnvolved)
             .ToListAsync();
     }
+
+    public async Task<Sinistro> GetSinistroAllData(Guid id)
+    {
+        return await Db.Sinistros
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .Include(x => x.SinistroAddress)
+            .Include(x => x.PeopleEnvolved)
+            .Include(x => x.VehiclesEnvolved)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

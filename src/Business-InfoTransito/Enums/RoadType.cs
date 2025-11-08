@@ -2,7 +2,8 @@
 
 public enum RoadType
 {
-    Curva = 0,
+    NaoInformado = 0,
+    Curva,
     Reta
 }
 

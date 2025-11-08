@@ -2,7 +2,8 @@
 
 public enum SinistroType
 {
-    Capotagem = 0,
+    NaoInformado = 0,
+    Capotagem,
     Tombamento,
     Colisao,
     Choque,

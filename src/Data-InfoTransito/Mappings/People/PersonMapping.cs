@@ -24,15 +24,15 @@ public class PersonMapping : IEntityTypeConfiguration<Person>
 
         builder.Property(x => x.CPF)
             .IsRequired()
-            .HasColumnType("varchar(11)");
+            .HasColumnType("varchar(13)");
 
         builder.Property(x => x.RG)
             .IsRequired()
-            .HasColumnType("varchar(9)");
+            .HasColumnType("varchar(10)");
 
         builder.Property(x => x.CNH)
             .IsRequired()
-            .HasColumnType("varchar(10)");
+            .HasColumnType("varchar(13)");
 
         builder.Property(x => x.Phone)
             .IsRequired()

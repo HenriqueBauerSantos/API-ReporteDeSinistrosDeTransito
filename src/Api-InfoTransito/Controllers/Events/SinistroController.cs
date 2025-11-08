@@ -1,6 +1,4 @@
 ﻿using Api_InfoTransito.DTOs.Events;
-using Api_InfoTransito.DTOs.Location;
-using Api_InfoTransito.DTOs.People;
 using AutoMapper;
 using Business_InfoTransito.Interfaces;
 using Business_InfoTransito.Interfaces.IRepositories.Events;
@@ -49,12 +47,7 @@ public class SinistroController : MainController
     public async Task<IActionResult> GetById(Guid id)
     {
         var sinistroDto = await FindSinistro(id);
-
-        //sinistroDto.PeopleEnvolved = _mapper.Map<List<PersonDto>>
-        //    (await _personRepository.AllPeopleBySinistro(id));
-        //sinistroDto.VehiclesEnvolved = _mapper.Map<List<VehicleDto>>
-        //    (await _vehicleRepository.GetVehicleBySinistro(id));
-
+  
         if (sinistroDto == null) return NotFound();
 
         return Ok(sinistroDto);
@@ -66,22 +59,16 @@ public class SinistroController : MainController
         if (!ModelState.IsValid)
             return CustomResponse(ModelState);
 
-        var sinistroToAdd = _mapper.Map<Sinistro>(sinistroDto);
-
-        await _sinistroService.Add(sinistroToAdd);
+        await _sinistroService.Add(_mapper.Map<Sinistro>(sinistroDto));
 
         return CustomResponse(sinistroDto);
     }
 
 
-
-
     //aux metods
     private async Task<SinistroDto> FindSinistro(Guid id)
     {
-        var sinistro = _mapper.Map<SinistroDto>(await _sinistroRepository.GetById(id));
-
-        sinistro.SinistroAddress = _mapper.Map<SinistroAddressDto>(await _sinistroAddressRepository.GetBySinistroId(id));
+        var sinistro = _mapper.Map<SinistroDto>(await _sinistroRepository.GetSinistroAllData(id));
 
         return sinistro;
     }

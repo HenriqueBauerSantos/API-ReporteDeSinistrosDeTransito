@@ -15,3 +15,4 @@ D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\Ba
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.pdb
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.genruntimeconfig.cache
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\ref\Data-InfoTransito.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Data-InfoTransito\obj\Debug\net8.0\Data-InfoTransito.sourcelink.json

@@ -2,7 +2,8 @@
 
 public enum RoadPavementType
 {
-    Asfalto = 0,
+    NaoInformado = 0,
+    Asfalto,
     Concreto,
     Paralelepipedo,
     NaoPavimentada

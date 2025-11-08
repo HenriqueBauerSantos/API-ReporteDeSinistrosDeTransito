@@ -2,6 +2,7 @@
 
 public enum GroundType
 {
-    AcliveDeclive = 0,
+    NaoInformado = 0,
+    AcliveDeclive,
     Plano
 }

@@ -10,3 +10,4 @@ D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\Ba
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.pdb
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\ref\Business-InfoTransito.dll
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.csproj.AssemblyReference.cache
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Business-InfoTransito\obj\Debug\net8.0\Business-InfoTransito.sourcelink.json

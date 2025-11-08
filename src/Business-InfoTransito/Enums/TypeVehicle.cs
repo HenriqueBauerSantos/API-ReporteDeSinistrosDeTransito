@@ -2,7 +2,8 @@
 
 public enum TypeVehicle
 {
-    Auto = 0,
+    NaoInformado = 0,
+    Auto,
     Taxi,
     Caminhao,
     Onibus,

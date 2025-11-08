@@ -20,16 +20,14 @@ public class PersonValidation : AbstractValidator<Person>
 
         RuleFor(x => x.CPF.Length).Equal(CpfValidacao.TamanhoCpf)
             .WithMessage("The Document field must have {ComparisonValue} characters and was provided {PropertyValue}.");
-        //RuleFor(x => CpfValidacao.Validar(x.CPF)).Equal(true)
-        //    .WithMessage("The document provided is invalid.");
 
         RuleFor(x => x.RG)
             .NotEmpty().WithMessage("The {PropertyName} field needs to be provided")
-            .Length(9).WithMessage("The {PropertyName} field must have {MinLength} charecters");
+            .Length(7, 10).WithMessage("The {PropertyName} field must be between {MinLength} and {MaxLength} charecters");
 
         RuleFor(x => x.CNH)
             .NotEmpty().WithMessage("The {PropertyName} field needs to be provided")
-            .Length(10).WithMessage("The {PropertyName} field must have {MinLength} charecters");
+            .Length(9, 13).WithMessage("The {PropertyName} field must be between {MinLength} and {MaxLength} charecters");
 
         RuleFor(x => x.Phone)
             .NotEmpty().WithMessage("The {PropertyName} field needs to be provided")

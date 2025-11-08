@@ -286,3 +286,4 @@ D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\Ba
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Api-InfoTransito\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Api-InfoTransito\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Api-InfoTransito\bin\Debug\net8.0\FluentValidation.dll
+D:\Área de trabalho\Estudos\ProjetosTI\ComunicacaoSinistro\SinistroSistemV01\BackEnd-InfoTransito\src\Api-InfoTransito\obj\Debug\net8.0\Api-InfoTransito.sourcelink.json
