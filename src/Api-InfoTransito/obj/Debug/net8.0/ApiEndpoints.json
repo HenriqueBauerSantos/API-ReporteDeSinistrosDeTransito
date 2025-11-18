@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "Api_InfoTransito.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/entrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginUser",
+        "Type": "Api_InfoTransito.DTOs.LoginUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/nova-conta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerUser",
+        "Type": "Api_InfoTransito.DTOs.RegisterUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
     "Method": "GetAll",
     "RelativePath": "sinistros",

@@ -1,4 +1,5 @@
-﻿using Data_InfoTransito.Context;
+﻿using Api_InfoTransito.Data;
+using Data_InfoTransito.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +11,7 @@ public static class ApiConfiguration
 {
     public static WebApplicationBuilder AddApiConfiguration(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         //teste com o front
         builder.Services.AddCors(options =>
@@ -19,7 +19,7 @@ public static class ApiConfiguration
             options.AddPolicy("AllowReactApp",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173") // URL do seu React
+                    policy.WithOrigins("http://localhost:5173")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
@@ -29,10 +29,13 @@ public static class ApiConfiguration
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        //DB
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
+
         builder.Services.AddDbContext<InfoTransitoDbContext>(options =>
-        {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-        });
+            options.UseSqlServer(connectionString));
+
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -52,6 +55,7 @@ public static class ApiConfiguration
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

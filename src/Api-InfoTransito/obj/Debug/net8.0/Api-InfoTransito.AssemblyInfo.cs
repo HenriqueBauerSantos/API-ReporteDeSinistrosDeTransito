@@ -11,11 +11,12 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Api_InfoTransito-f8a33a1e-41cf-4c44-b1d4-01d7065c31a3")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1420b37c449d637371eb5b33c1cc114eb9ed7ef7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a9aab936c87e9267343ea5802ac773db370819a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Api-InfoTransito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
