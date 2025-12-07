@@ -8,5 +8,5 @@ public interface ISinistroService : IDisposable
     Task Add(Sinistro sinistro);
     Task Update(Sinistro sinistro);
     Task Delete(Guid id);
-    Task UpdateSinistroAddress(SinistroAddress sinistroAddress);
+    Task UpdateSinistroAddress(Sinistro sinistro);
 }

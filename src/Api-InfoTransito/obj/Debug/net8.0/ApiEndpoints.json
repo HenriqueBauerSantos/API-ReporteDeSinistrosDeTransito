@@ -82,5 +82,67 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "Update",
+    "RelativePath": "sinistros/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "sinistroDto",
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "SinistroAddressUpdate",
+    "RelativePath": "sinistros/editarEnderecoSinistro/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "sinistroDto",
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

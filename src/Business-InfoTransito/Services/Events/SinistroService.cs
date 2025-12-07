@@ -1,5 +1,6 @@
 ﻿using Business_InfoTransito.Interfaces;
 using Business_InfoTransito.Interfaces.IRepositories.Events;
+using Business_InfoTransito.Interfaces.IRepositories.Location;
 using Business_InfoTransito.Interfaces.IServices.Events;
 using Business_InfoTransito.Interfaces.IServices.People;
 using Business_InfoTransito.Models.Events;
@@ -15,15 +16,18 @@ public class SinistroService : BaseService, ISinistroService
     private readonly ISinistroRepository _sinistroRepository;
     private readonly IPersonService _personService;
     private readonly IVehicleService _vehicleService;
+    private readonly ISinistroAddressRepository _sinistroAddressRepository;
 
     public SinistroService(IPersonService personService,
         ISinistroRepository sinistroRepository,
         IVehicleService vehicleService,
+        ISinistroAddressRepository sinistroAddressRepository,
         INotifier notifier) : base(notifier)
     {
         _personService = personService;
         _vehicleService = vehicleService;
         _sinistroRepository = sinistroRepository;
+        _sinistroAddressRepository = sinistroAddressRepository;
     }
 
     public async Task Add(Sinistro sinistroReceived)
@@ -77,20 +81,65 @@ public class SinistroService : BaseService, ISinistroService
         await _sinistroRepository.Add(SinistroToAdd);
     }
 
-    public async Task Update(Sinistro sinistro)
+    public async Task Update(Sinistro sinistroReceived)
     {
-        throw new NotImplementedException();
+        if (!ExecuteValidation(new SinistroValidation(), sinistroReceived)) return;
+
+        foreach (var item in sinistroReceived.VehiclesEnvolved)
+        {
+            if (!ExecuteValidation(new VehicleValidation(), item)) return;
+        }
+        foreach (var item in sinistroReceived.PeopleEnvolved)
+        {
+            if (!ExecuteValidation(new PersonValidation(), item)) return;
+        }
+
+        var newVehicles = sinistroReceived.VehiclesEnvolved.ToList();
+        var newPeople = sinistroReceived.PeopleEnvolved.ToList();
+
+        var sinistroToUpdate = await _sinistroRepository.GetSinistroAllData(sinistroReceived.Id);
+        var oldVehicles = sinistroToUpdate.VehiclesEnvolved?.ToList();
+        var oldPeople = sinistroToUpdate.PeopleEnvolved?.ToList();
+
+        sinistroToUpdate.Date = sinistroReceived.Date;
+        sinistroToUpdate.InjuredPeople = sinistroReceived.InjuredPeople;
+        sinistroToUpdate.SinistroType = sinistroReceived.SinistroType;
+        sinistroToUpdate.RoadPavementType = sinistroReceived.RoadPavementType;
+        sinistroToUpdate.RoadType = sinistroReceived.RoadType;
+        sinistroToUpdate.GroundType = sinistroReceived.GroundType;
+        sinistroToUpdate.Weather = sinistroReceived.Weather;
+        sinistroToUpdate.SinistroAddress = sinistroReceived.SinistroAddress;
+        sinistroToUpdate.SinistroDescription = sinistroReceived.SinistroDescription;
+
+        //Logica validar veículos pessoas
+
+        await _sinistroRepository.Update(sinistroToUpdate);
+    }
+
+    public async Task UpdateSinistroAddress(Sinistro sinistroReceived)
+    {
+        if (!ExecuteValidation(new SinistroAddressValidation(), sinistroReceived.SinistroAddress)) return;
+
+        var sinistroAddressToUpdate = await _sinistroAddressRepository.GetBySinistroId(sinistroReceived.Id);
+
+        sinistroAddressToUpdate.Road = sinistroReceived.SinistroAddress?.Road;
+        sinistroAddressToUpdate.Number = sinistroReceived.SinistroAddress?.Number;
+        sinistroAddressToUpdate.Complement = sinistroReceived.SinistroAddress?.Complement;
+        sinistroAddressToUpdate.Cep = sinistroReceived.SinistroAddress?.Cep;
+        sinistroAddressToUpdate.District = sinistroReceived.SinistroAddress?.District;
+        sinistroAddressToUpdate.City = sinistroReceived.SinistroAddress?.City;
+        sinistroAddressToUpdate.State = sinistroReceived.SinistroAddress?.State;
+        sinistroAddressToUpdate.Latitude = sinistroReceived.SinistroAddress.Latitude;
+        sinistroAddressToUpdate.Longitude = sinistroReceived.SinistroAddress.Longitude;
+
+        await _sinistroAddressRepository.Update(sinistroAddressToUpdate);
     }
 
     public async Task Delete(Guid id)
     {
         throw new NotImplementedException();
-    }    
-
-    public async Task UpdateSinistroAddress(SinistroAddress sinistroAddress)
-    {
-        throw new NotImplementedException();
-    }
+    }  
+       
 
     public void Dispose()
     {

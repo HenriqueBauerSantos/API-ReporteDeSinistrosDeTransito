@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Data-InfoTransito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a9aab936c87e9267343ea5802ac773db370819a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+375e778af32e63e4cf193b2586b5d5b1c84b8b3d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Data-InfoTransito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Data-InfoTransito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
