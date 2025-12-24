@@ -14,6 +14,7 @@ public class InfoTransitoDbContext : DbContext
     public DbSet<Person> Persons { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Sinistro> Sinistros { get; set; }
+    public DbSet<SinistroExcludeSolicitation> SinistroExcludeSolicitation { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

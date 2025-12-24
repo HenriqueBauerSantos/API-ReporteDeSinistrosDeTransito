@@ -4,6 +4,7 @@ using Data_InfoTransito.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_InfoTransito.Migrations
 {
     [DbContext(typeof(InfoTransitoDbContext))]
-    partial class InfoTransitoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251207212811_SinistroExcludeSolution")]
+    partial class SinistroExcludeSolution
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +81,7 @@ namespace Data_InfoTransito.Migrations
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SinistroId")
+                    b.Property<Guid>("SinistroId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -276,7 +279,8 @@ namespace Data_InfoTransito.Migrations
                 {
                     b.HasOne("Business_InfoTransito.Models.Events.Sinistro", "Sinistro")
                         .WithMany()
-                        .HasForeignKey("SinistroId");
+                        .HasForeignKey("SinistroId")
+                        .IsRequired();
 
                     b.Navigation("Sinistro");
                 });

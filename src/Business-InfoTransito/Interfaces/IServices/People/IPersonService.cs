@@ -7,6 +7,6 @@ public interface IPersonService : IDisposable
 {
     Task Add(Person person);
     Task Update(Person person);
-    Task Delete(Person person);
+    Task Delete(Guid personId);
     Task UpdateAddress(PersonAddress address);
 }

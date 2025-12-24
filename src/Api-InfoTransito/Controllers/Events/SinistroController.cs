@@ -11,6 +11,7 @@ using Business_InfoTransito.Models.Events;
 using Business_InfoTransito.Models.Location;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Api_InfoTransito.Controllers.Events;
 
@@ -104,6 +105,43 @@ public class SinistroController : MainController
             return CustomResponse(ModelState);
 
         await _sinistroService.UpdateSinistroAddress(_mapper.Map<Sinistro>(sinistroDto));
+
+        return CustomResponse(sinistroDto);
+    }
+
+    [ClaimsAuthorize("Sinistros", "EX")]
+    [HttpDelete("solicitacaoDeletarSinistro/{id:guid}")]
+    public async Task<ActionResult<SinistroDto>> RequestDelete(Guid id)
+    {
+        var sinistroDto = await FindSinistro(id);
+
+        if (sinistroDto == null) return NotFound();
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        await _sinistroService.DeleteSolicitation(id, Guid.Parse(userId));
+
+        return CustomResponse(sinistroDto);
+    }
+
+    [ClaimsAuthorize("Sinistros", "CANEX")]
+    [HttpGet("ListasolicitacaoDeletarSinistro")]
+    public async Task<ActionResult<SinistroDto>> RequestList()
+    {
+        return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetSinistrosComSolicitacaoCompleto()));
+    }
+
+    [ClaimsAuthorize("Sinistros", "CANEX")]
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<SinistroDto>> Delete(Guid id)
+    {
+        var sinistroDto = await FindSinistro(id);
+
+        if (sinistroDto == null) return NotFound();
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        await _sinistroService.Delete(id, Guid.Parse(userId));
 
         return CustomResponse(sinistroDto);
     }

@@ -16,6 +16,7 @@ public class AutomapperConfig : Profile
         CreateMap<Person, PersonDto>().ReverseMap();
         CreateMap<Vehicle, VehicleDto>().ReverseMap();
         CreateMap<Sinistro, SinistroDto>().ReverseMap();
+        CreateMap<SinistroExcludeSolicitation, SinistroExcludeSolicitationDto>().ReverseMap();
 
         CreateMap<PersonAddress, PersonAddressDto>()
             .IncludeBase<Address, AddressDto>()

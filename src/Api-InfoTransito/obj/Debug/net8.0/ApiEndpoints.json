@@ -116,6 +116,32 @@
   },
   {
     "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "Delete",
+    "RelativePath": "sinistros/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
     "Method": "SinistroAddressUpdate",
     "RelativePath": "sinistros/editarEnderecoSinistro/{id}",
     "HttpMethod": "PUT",
@@ -130,6 +156,52 @@
       {
         "Name": "sinistroDto",
         "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "RequestList",
+    "RelativePath": "sinistros/ListasolicitacaoDeletarSinistro",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Api_InfoTransito.DTOs.Events.SinistroDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "RequestDelete",
+    "RelativePath": "sinistros/solicitacaoDeletarSinistro/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

@@ -3,6 +3,7 @@ using Business_InfoTransito.Models.Events;
 using Business_InfoTransito.Models.People;
 using Data_InfoTransito.Context;
 using Microsoft.EntityFrameworkCore;
+using Business_InfoTransito.Enums;
 
 namespace Data_InfoTransito.Repository.Events;
 
@@ -39,5 +40,19 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .Include(x => x.PeopleEnvolved)
             .Include(x => x.VehiclesEnvolved)
             .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<IEnumerable<Sinistro>> GetSinistrosComSolicitacaoCompleto()
+    {
+        return await Db.Sinistros
+            .AsNoTracking()
+            .Include(s => s.SinistroAddress)
+            .Include(s => s.PeopleEnvolved)
+            .Include(s => s.VehiclesEnvolved)
+            .Where(s => Db.SinistroExcludeSolicitation
+                .Any(sol => 
+                        sol.SinistroId == s.Id &&
+                        sol.Status == ExclusionStatus.Solicitado))
+            .ToListAsync();
     }
 }

@@ -25,9 +25,12 @@ public class PersonService : BaseService, IPersonService
         await _personRepository.Add(person);
     }
 
-    public async Task Delete(Person person)
+    public async Task Delete(Guid personId)
     {
-        throw new NotImplementedException();
+        var address = await _personAddressRepository.GetByPersonId(personId);
+        await _personAddressRepository.Delete(address.Id);
+
+        await _personRepository.Delete(personId);
     }    
 
     public async Task Update(Person person)

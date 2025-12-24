@@ -25,6 +25,7 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
         builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
         builder.Services.AddScoped<ISinistroRepository, SinistroRepository>();
+        builder.Services.AddScoped<ISinistroExcludeSolicitationRepository, SinistroExcludeSolicitationRepository>();
 
         builder.Services.AddScoped<INotifier, Notifier>();
         builder.Services.AddScoped<IPersonService, PersonService>();

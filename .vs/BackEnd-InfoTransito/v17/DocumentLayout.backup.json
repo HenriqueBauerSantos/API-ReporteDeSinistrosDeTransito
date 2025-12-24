@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{5F76BE9B-CA58-47A3-8AB5-89877B6E62BE}|src\\Business-InfoTransito\\Business-InfoTransito.csproj|d:\\\u00E1rea de trabalho\\estudos\\projetosti\\comunicacaosinistro\\sinistrosistemv01\\backend-infotransito\\src\\business-infotransito\\services\\events\\sinistroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F76BE9B-CA58-47A3-8AB5-89877B6E62BE}|src\\Business-InfoTransito\\Business-InfoTransito.csproj|solutionrelative:src\\business-infotransito\\services\\events\\sinistroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BE415F67-0B12-4F3E-9983-036DE320A86F}|src\\Api-InfoTransito\\Api-InfoTransito.csproj|d:\\\u00E1rea de trabalho\\estudos\\projetosti\\comunicacaosinistro\\sinistrosistemv01\\backend-infotransito\\src\\api-infotransito\\controllers\\events\\sinistrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BE415F67-0B12-4F3E-9983-036DE320A86F}|src\\Api-InfoTransito\\Api-InfoTransito.csproj|solutionrelative:src\\api-infotransito\\controllers\\events\\sinistrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3030CDFC-44E2-49AF-89AC-88C3E9393A7A}|src\\Data-InfoTransito\\Data-InfoTransito.csproj|d:\\\u00E1rea de trabalho\\estudos\\projetosti\\comunicacaosinistro\\sinistrosistemv01\\backend-infotransito\\src\\data-infotransito\\repository\\events\\sinistrorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3030CDFC-44E2-49AF-89AC-88C3E9393A7A}|src\\Data-InfoTransito\\Data-InfoTransito.csproj|solutionrelative:src\\data-infotransito\\repository\\events\\sinistrorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,48 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SinistroRepository.cs",
-              "DocumentMoniker": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Data-InfoTransito\\Repository\\Events\\SinistroRepository.cs",
-              "RelativeDocumentMoniker": "src\\Data-InfoTransito\\Repository\\Events\\SinistroRepository.cs",
-              "ToolTip": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Data-InfoTransito\\Repository\\Events\\SinistroRepository.cs",
-              "RelativeToolTip": "src\\Data-InfoTransito\\Repository\\Events\\SinistroRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T19:59:57.552Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SinistroController.cs",
-              "DocumentMoniker": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Api-InfoTransito\\Controllers\\Events\\SinistroController.cs",
-              "RelativeDocumentMoniker": "src\\Api-InfoTransito\\Controllers\\Events\\SinistroController.cs",
-              "ToolTip": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Api-InfoTransito\\Controllers\\Events\\SinistroController.cs",
-              "RelativeToolTip": "src\\Api-InfoTransito\\Controllers\\Events\\SinistroController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAArwFAAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T02:16:36.417Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SinistroService.cs",
-              "DocumentMoniker": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Business-InfoTransito\\Services\\Events\\SinistroService.cs",
-              "RelativeDocumentMoniker": "src\\Business-InfoTransito\\Services\\Events\\SinistroService.cs",
-              "ToolTip": "D:\\\u00C1rea de trabalho\\Estudos\\ProjetosTI\\ComunicacaoSinistro\\SinistroSistemV01\\BackEnd-InfoTransito\\src\\Business-InfoTransito\\Services\\Events\\SinistroService.cs",
-              "RelativeToolTip": "src\\Business-InfoTransito\\Services\\Events\\SinistroService.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAwwF8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T23:18:12.108Z",
-              "EditorCaption": ""
             }
           ]
         }

@@ -203,6 +203,44 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Sinistro"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sinistros/editarEnderecoSinistro/{id}": {
@@ -240,6 +278,75 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sinistros/solicitacaoDeletarSinistro/{id}": {
+      "delete": {
+        "tags": [
+          "Sinistro"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SinistroDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sinistros/ListasolicitacaoDeletarSinistro": {
+      "get": {
+        "tags": [
+          "Sinistro"
+        ],
         "responses": {
           "200": {
             "description": "OK",

@@ -4,7 +4,7 @@ using Business_InfoTransito.Interfaces.IRepositories.Location;
 using Business_InfoTransito.Interfaces.IServices.Events;
 using Business_InfoTransito.Interfaces.IServices.People;
 using Business_InfoTransito.Models.Events;
-using Business_InfoTransito.Models.Location;
+using Business_InfoTransito.Enums;
 using Business_InfoTransito.Models.Validations.Events;
 using Business_InfoTransito.Models.Validations.Location;
 using Business_InfoTransito.Models.Validations.People;
@@ -17,17 +17,20 @@ public class SinistroService : BaseService, ISinistroService
     private readonly IPersonService _personService;
     private readonly IVehicleService _vehicleService;
     private readonly ISinistroAddressRepository _sinistroAddressRepository;
+    private readonly ISinistroExcludeSolicitationRepository _sinistroExcludeSolicitationRepository;
 
     public SinistroService(IPersonService personService,
         ISinistroRepository sinistroRepository,
         IVehicleService vehicleService,
         ISinistroAddressRepository sinistroAddressRepository,
+        ISinistroExcludeSolicitationRepository excludeSolicitationRepository,
         INotifier notifier) : base(notifier)
     {
         _personService = personService;
         _vehicleService = vehicleService;
         _sinistroRepository = sinistroRepository;
         _sinistroAddressRepository = sinistroAddressRepository;
+        _sinistroExcludeSolicitationRepository = excludeSolicitationRepository;
     }
 
     public async Task Add(Sinistro sinistroReceived)
@@ -135,9 +138,61 @@ public class SinistroService : BaseService, ISinistroService
         await _sinistroAddressRepository.Update(sinistroAddressToUpdate);
     }
 
-    public async Task Delete(Guid id)
+    public async Task DeleteSolicitation(Guid id, Guid userId)
     {
-        throw new NotImplementedException();
+        var sinistro = await _sinistroRepository.GetById(id);
+
+        var solicitation = new SinistroExcludeSolicitation
+        {
+            SinistroId = sinistro.Id,
+            Motive = "Erro de cadastro",
+            RequestDate = DateTime.Now,
+            Status = Enums.ExclusionStatus.Solicitado,
+            AnalyzedByUserId = userId,
+            AnalyzedDate = DateTime.Now,
+        };
+
+        await _sinistroExcludeSolicitationRepository.Add(solicitation);
+    }
+
+    public async Task Delete(Guid id, Guid userId)
+    {
+        var sinistro = await _sinistroRepository.GetSinistroAllData(id);
+
+        var solicitacoes = await _sinistroExcludeSolicitationRepository
+            .Find(s => s.SinistroId == id);
+
+        if (solicitacoes.Any())
+        {
+            foreach (var item in solicitacoes)
+            {
+                item.AnalyzedDate = DateTime.Now;
+                item.AnalyzedByUserId = userId;
+                item.Status = ExclusionStatus.Aprovado;
+                item.SinistroId = null;
+                await _sinistroExcludeSolicitationRepository.Update(item);
+            }
+        }
+
+        if (sinistro.PeopleEnvolved.Any())
+        {
+            foreach (var item in sinistro.PeopleEnvolved)
+            {
+                await _personService.Delete(item.Id);
+            }
+        }
+
+        if (sinistro.VehiclesEnvolved.Any())
+        {
+            foreach (var item in sinistro.VehiclesEnvolved)
+            {
+                await _vehicleService.Delete(item.Id);
+            }
+        }
+
+        await _sinistroAddressRepository.Delete(sinistro.SinistroAddress.Id);
+
+        await _sinistroRepository.Delete(sinistro.Id);        
     }  
        
 
@@ -146,5 +201,5 @@ public class SinistroService : BaseService, ISinistroService
         _sinistroRepository.Dispose();
         _personService.Dispose();
         _vehicleService.Dispose();
-    }
+    }    
 }

@@ -8,4 +8,5 @@ public interface ISinistroRepository : IRepository<Sinistro>
     Task<IEnumerable<Person>> GetAllPeople();
     Task<IEnumerable<Vehicle>> GetAllVehicles();
     Task<Sinistro> GetSinistroAllData(Guid id);
+    Task<IEnumerable<Sinistro>> GetSinistrosComSolicitacaoCompleto();
 }

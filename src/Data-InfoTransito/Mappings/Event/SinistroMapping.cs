@@ -39,17 +39,20 @@ public class SinistroMapping : IEntityTypeConfiguration<Sinistro>
         //SinistroAddress SinistroAddress 
         builder.HasOne(x => x.SinistroAddress)
             .WithOne(a => a.SinistroRegister)
-            .HasForeignKey<SinistroAddress>(a => a.SinistroId);
+            .HasForeignKey<SinistroAddress>(a => a.SinistroId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         //List PeopleEnvolved
         builder.HasMany(x => x.PeopleEnvolved)
             .WithOne(p => p.Sinistro)
-            .HasForeignKey(p => p.SinistroID);
+            .HasForeignKey(p => p.SinistroID)
+            .OnDelete(DeleteBehavior.Cascade);
 
         //List VehiclesEnvolved
         builder.HasMany(x => x.VehiclesEnvolved)
             .WithOne(v => v.Sinistro)
-            .HasForeignKey(v => v.SinistroId);
+            .HasForeignKey(v => v.SinistroId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable("Sinistros");
     }

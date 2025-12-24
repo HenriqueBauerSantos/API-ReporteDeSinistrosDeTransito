@@ -22,7 +22,7 @@ public class VehicleService : BaseService, IVehicleService
 
     public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        await _vehicleRepository.Delete(id);
     }    
 
     public async Task Update(Vehicle vehicle)
