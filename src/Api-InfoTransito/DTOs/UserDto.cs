@@ -46,3 +46,9 @@ public class LoginResponseDto
     public double ExpiresIn { get; set; }
     public UserTokenDto UserToken { get; set; }
 }
+
+public class resetPasswordDto
+{
+    public string Email { get; set; }
+    public string NewPassword { get; set; }
+}

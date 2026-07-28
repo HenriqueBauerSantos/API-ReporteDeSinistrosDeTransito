@@ -18,4 +18,5 @@ public class Sinistro : Entity
     public List<Vehicle>? VehiclesEnvolved { get; set; }
     public SinistroAddress? SinistroAddress { get; set; }
     public string? SinistroDescription { get; set; }
+    public string? UserId { get; set; }
 }

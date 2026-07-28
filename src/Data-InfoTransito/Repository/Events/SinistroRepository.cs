@@ -31,6 +31,17 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Sinistro>> GetByUserId(string userId)
+    {
+        return await Db.Sinistros
+            .AsNoTracking()
+            .Include(s => s.SinistroAddress)
+            .Include(s => s.PeopleEnvolved)
+            .Include(s => s.VehiclesEnvolved)
+            .Where(s => s.UserId == userId)
+            .ToListAsync();
+    }
+
     public async Task<Sinistro> GetSinistroAllData(Guid id)
     {
         return await Db.Sinistros

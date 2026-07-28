@@ -23,7 +23,13 @@ public class InfoTransitoDbContext : DbContext
             .SelectMany(e => e.GetProperties()
             .Where(p => p.ClrType == typeof(string))))
             property.SetColumnType("varchar(100)");
-        
+
+        modelBuilder.Entity<Sinistro>()
+            .Property(s => s.UserId)
+            .HasColumnType("nvarchar(450)")
+            .HasMaxLength(450)
+            .IsRequired(false);
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(InfoTransitoDbContext).Assembly);
 
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))

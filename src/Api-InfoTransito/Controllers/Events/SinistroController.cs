@@ -50,6 +50,22 @@ public class SinistroController : MainController
         return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetAll()));
     }
 
+    [ClaimsAuthorize("Sinistros", "AD")]
+    [HttpGet("meus-registros")]
+    public async Task<IActionResult> GetAllByUser()
+    {
+        var userId = User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if(userId == null)
+        {
+            NotifyError("O Usuário não encontrado.");
+            return NotFound();
+        }
+
+        return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetByUserId(userId)));
+    }
+
 
     [ClaimsAuthorize("Sinistros", "VI")]
     [HttpGet("{id:guid}")]
@@ -69,7 +85,13 @@ public class SinistroController : MainController
         if (!ModelState.IsValid)
             return CustomResponse(ModelState);
 
-        await _sinistroService.Add(_mapper.Map<Sinistro>(sinistroDto));
+        var userId = User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        var sinistroToAdd = _mapper.Map<Sinistro>(sinistroDto);
+        sinistroToAdd.UserId = userId;
+
+        await _sinistroService.Add(sinistroToAdd);
 
         return CustomResponse(sinistroDto);
     }

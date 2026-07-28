@@ -67,6 +67,37 @@
         }
       }
     },
+    "/api/resetar-senha": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resetPasswordDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resetPasswordDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/resetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/sinistros": {
       "get": {
         "tags": [
@@ -121,6 +152,18 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/sinistros/meus-registros": {
+      "get": {
+        "tags": [
+          "Sinistro"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -667,6 +710,20 @@
           "personId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "resetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
             "nullable": true
           }
         },

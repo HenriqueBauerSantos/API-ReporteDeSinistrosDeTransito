@@ -76,6 +76,31 @@ public class AuthController : MainController
         return CustomResponse(loginUser);
     }
 
+    [HttpPost("resetar-senha")]
+    public async Task<ActionResult> ResetPassword(resetPasswordDto resetPassword)
+    {
+        if (!ModelState.IsValid) return CustomResponse(ModelState);
+        var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+        if (user == null)
+        {
+            NotifyError("Usuário não encontrado");
+            return CustomResponse(resetPassword);
+        }
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        var result = await _userManager.ResetPasswordAsync(user, token, resetPassword.NewPassword);
+
+        if (result.Succeeded)
+            return CustomResponse("Senha redefinida com sucesso");
+
+        foreach (var error in result.Errors)
+        {
+            NotifyError(error.Description);
+        }
+        return CustomResponse(resetPassword);
+    }
+
     private async Task<LoginResponseDto> GenerateJwt(string email)
     {
         var user = await _userManager.FindByEmailAsync(email);

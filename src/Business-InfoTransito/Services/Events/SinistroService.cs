@@ -64,6 +64,7 @@ public class SinistroService : BaseService, ISinistroService
             PeopleEnvolved = sinistroReceived.PeopleEnvolved,
             VehiclesEnvolved = sinistroReceived.VehiclesEnvolved,
             SinistroAddress = sinistroReceived.SinistroAddress,
+            UserId = sinistroReceived.UserId,
         };
 
         SinistroToAdd.SinistroAddress.SinistroRegister = SinistroToAdd;

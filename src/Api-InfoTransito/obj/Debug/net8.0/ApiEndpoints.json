@@ -32,6 +32,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Api_InfoTransito.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/resetar-senha",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "resetPassword",
+        "Type": "Api_InfoTransito.DTOs.resetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
     "Method": "GetAll",
     "RelativePath": "sinistros",
@@ -190,6 +206,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",
+    "Method": "GetAllByUser",
+    "RelativePath": "sinistros/meus-registros",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Api_InfoTransito.Controllers.Events.SinistroController",

@@ -10,9 +10,6 @@ public class SinistroValidation : AbstractValidator<Sinistro>
         RuleFor(x => x.Date)
             .NotEmpty().WithMessage("The {PropertyName} field needs to be provided");
 
-        RuleFor(x => x.InjuredPeople)
-            .NotEmpty().WithMessage("The {PropertyName} field needs to be provided");
-
         RuleFor(x => x.SinistroType)
             .NotEmpty().WithMessage("The {PropertyName} field needs to be provided");
 

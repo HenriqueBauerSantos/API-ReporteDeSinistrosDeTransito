@@ -9,4 +9,5 @@ public interface ISinistroRepository : IRepository<Sinistro>
     Task<IEnumerable<Vehicle>> GetAllVehicles();
     Task<Sinistro> GetSinistroAllData(Guid id);
     Task<IEnumerable<Sinistro>> GetSinistrosComSolicitacaoCompleto();
+    Task<IEnumerable<Sinistro>> GetByUserId(string userID);
 }
