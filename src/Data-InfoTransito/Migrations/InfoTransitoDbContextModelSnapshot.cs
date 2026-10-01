@@ -17,7 +17,7 @@ namespace Data_InfoTransito.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.19")
+                .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -113,16 +113,14 @@ namespace Data_InfoTransito.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("ManufacturingYear")
-                        .IsRequired()
+                    b.Property<DateTime>("ManufacturingYear")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid?>("PersonId")
-                        .IsRequired()
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SinistroId")
@@ -250,8 +248,7 @@ namespace Data_InfoTransito.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(13)");
 
-                    b.Property<bool?>("Gender")
-                        .IsRequired()
+                    b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")

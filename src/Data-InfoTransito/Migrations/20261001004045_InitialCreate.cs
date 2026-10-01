@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data_InfoTransito.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,8 @@ namespace Data_InfoTransito.Migrations
                     RoadType = table.Column<int>(type: "int", nullable: false),
                     GroundType = table.Column<int>(type: "int", nullable: false),
                     Weather = table.Column<int>(type: "int", nullable: false),
-                    SinistroDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SinistroDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,9 +40,9 @@ namespace Data_InfoTransito.Migrations
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     BirthDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<bool>(type: "bit", nullable: false),
-                    CPF = table.Column<string>(type: "varchar(11)", nullable: false),
-                    RG = table.Column<string>(type: "varchar(9)", nullable: false),
-                    CNH = table.Column<string>(type: "varchar(10)", nullable: false),
+                    CPF = table.Column<string>(type: "varchar(13)", nullable: false),
+                    RG = table.Column<string>(type: "varchar(10)", nullable: false),
+                    CNH = table.Column<string>(type: "varchar(13)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(20)", nullable: false)
                 },
                 constraints: table =>
@@ -50,6 +51,28 @@ namespace Data_InfoTransito.Migrations
                     table.ForeignKey(
                         name: "FK_Persons_Sinistros_SinistroID",
                         column: x => x.SinistroID,
+                        principalTable: "Sinistros",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SinistroExcludeSolicitation",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SinistroId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Motive = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    AnalyzedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AnalyzedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SinistroExcludeSolicitation", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SinistroExcludeSolicitation_Sinistros_SinistroId",
+                        column: x => x.SinistroId,
                         principalTable: "Sinistros",
                         principalColumn: "Id");
                 });
@@ -91,7 +114,8 @@ namespace Data_InfoTransito.Migrations
                     Model = table.Column<string>(type: "varchar(50)", nullable: false),
                     ManufacturingYear = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Color = table.Column<string>(type: "varchar(50)", nullable: false),
-                    TypeVehicle = table.Column<int>(type: "int", nullable: false)
+                    TypeVehicle = table.Column<int>(type: "int", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,6 +163,11 @@ namespace Data_InfoTransito.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_SinistroExcludeSolicitation_SinistroId",
+                table: "SinistroExcludeSolicitation",
+                column: "SinistroId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SinistrosAddresses_SinistroId",
                 table: "SinistrosAddresses",
                 column: "SinistroId",
@@ -155,6 +184,9 @@ namespace Data_InfoTransito.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PersonsAddresses");
+
+            migrationBuilder.DropTable(
+                name: "SinistroExcludeSolicitation");
 
             migrationBuilder.DropTable(
                 name: "SinistrosAddresses");
