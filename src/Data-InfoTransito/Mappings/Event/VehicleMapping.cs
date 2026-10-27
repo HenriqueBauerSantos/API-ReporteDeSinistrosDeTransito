@@ -31,6 +31,7 @@ public class VehicleMapping : IEntityTypeConfiguration<Vehicle>
             .IsRequired();
 
         builder.Property(x => x.ManufacturingYear)
+            .HasColumnType("int")
             .IsRequired();
 
         builder.Property(x => x.PersonId)

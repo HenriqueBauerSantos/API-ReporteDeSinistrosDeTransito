@@ -9,7 +9,7 @@ public class VehicleDto
     public string? CarLisencePlate { get; set; }
     public string? Brand { get; set; }
     public string? Model { get; set; }
-    public DateTime? ManufacturingYear { get; set; }
+    public int ManufacturingYear { get; set; }
     public string? Color { get; set; }
     public TypeVehicle TypeVehicle { get; set; }
 

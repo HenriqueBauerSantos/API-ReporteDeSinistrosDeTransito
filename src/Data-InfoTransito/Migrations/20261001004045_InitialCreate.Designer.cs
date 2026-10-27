@@ -116,8 +116,8 @@ namespace Data_InfoTransito.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("ManufacturingYear")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ManufacturingYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Model")
                         .IsRequired()

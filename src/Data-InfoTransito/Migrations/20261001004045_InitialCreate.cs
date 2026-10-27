@@ -112,7 +112,7 @@ namespace Data_InfoTransito.Migrations
                     CarLisencePlate = table.Column<string>(type: "varchar(7)", nullable: false),
                     Brand = table.Column<string>(type: "varchar(50)", nullable: false),
                     Model = table.Column<string>(type: "varchar(50)", nullable: false),
-                    ManufacturingYear = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ManufacturingYear = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "varchar(50)", nullable: false),
                     TypeVehicle = table.Column<int>(type: "int", nullable: false),
                     PersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
