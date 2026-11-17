@@ -50,6 +50,16 @@ public class SinistroController : MainController
         return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetAll()));
     }
 
+    [ClaimsAuthorize("Sinistros", "VI")]
+    [HttpGet("mapa")]
+    public async Task<ActionResult<List<SinistroMapMarkerDto>>> GetMapMarkers([FromQuery] SinistroMapFilterDto filterDto)
+    {
+        var filter = _mapper.Map<SinistroMapFilter>(filterDto);
+        var markers = await _sinistroRepository.GetByMapFilter(filter);
+
+        return Ok(_mapper.Map<List<SinistroMapMarkerDto>>(markers));
+    }
+
     [ClaimsAuthorize("Sinistros", "AD")]
     [HttpGet("meus-registros")]
     public async Task<IActionResult> GetAllByUser()

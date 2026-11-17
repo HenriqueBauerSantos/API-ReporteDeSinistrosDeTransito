@@ -10,4 +10,5 @@ public interface ISinistroRepository : IRepository<Sinistro>
     Task<Sinistro> GetSinistroAllData(Guid id);
     Task<IEnumerable<Sinistro>> GetSinistrosComSolicitacaoCompleto();
     Task<IEnumerable<Sinistro>> GetByUserId(string userID);
+    Task<IEnumerable<SinistroMapMarker>> GetByMapFilter(SinistroMapFilter filter);
 }
