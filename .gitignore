@@ -9,6 +9,9 @@
 appsettings*.json
 appsettings*.Development.json
 
+# Local and one-off scripts
+/scripts/
+
 # User-specific files
 *.rsuser
 *.suo
