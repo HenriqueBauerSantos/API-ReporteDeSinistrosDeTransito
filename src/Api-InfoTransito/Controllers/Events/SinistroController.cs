@@ -59,6 +59,17 @@ public class SinistroController : MainController
         return CustomResponse(_mapper.Map<List<SinistroMapMarkerDto>>(markers));
     }
 
+    [ClaimsAuthorize("Sinistros", "VI")]
+    [HttpGet("estatisticas")]
+    public async Task<IActionResult> GetStatistics([FromQuery] SinistroStatisticsFilterDto filterDto)
+    {
+        var filter = _mapper.Map<SinistroStatisticsFilter>(filterDto);
+        var statistics = await _sinistroService.GetStatistics(filter);
+        var message = statistics.TotalAccidents == 0 ? "Nenhum registro encontrado." : null;
+
+        return CustomResponse(_mapper.Map<SinistroStatisticsDto>(statistics), message);
+    }
+
     [ClaimsAuthorize("Sinistros", "AD")]
     [HttpGet("meus-registros")]
     public async Task<IActionResult> GetAllByUser()

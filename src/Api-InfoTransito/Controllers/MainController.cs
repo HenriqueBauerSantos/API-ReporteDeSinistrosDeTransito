@@ -21,16 +21,19 @@ public abstract class MainController : ControllerBase
         return !_notifier.HasNotification();
     }
 
-    protected ActionResult CustomResponse(object result = null)
+    protected ActionResult CustomResponse(object result = null, string message = null)
     {
         if (ValidOperation())
         {
             if (result is ICollection collection && collection.Count == 0)
+                message ??= "Nenhum registro encontrado.";
+
+            if (message != null)
             {
                 return Ok(new
                 {
                     success = true,
-                    message = "Nenhum registro encontrado.",
+                    message,
                     Data = result
                 });
             }

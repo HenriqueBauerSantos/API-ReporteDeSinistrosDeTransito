@@ -195,7 +195,168 @@ public class SinistroService : BaseService, ISinistroService
 
         await _sinistroRepository.Delete(sinistro.Id);        
     }  
-       
+
+    public async Task<SinistroStatistics> GetStatistics(SinistroStatisticsFilter filter)
+    {
+        filter ??= new SinistroStatisticsFilter();
+
+        if (!ValidateStatisticsFilter(filter))
+            return new SinistroStatistics();
+
+        var groupBy = string.IsNullOrWhiteSpace(filter.GroupBy)
+            ? "day"
+            : filter.GroupBy.Trim().ToLowerInvariant();
+
+        filter.GroupBy = groupBy;
+        var accidents = (await _sinistroRepository.GetByStatisticsFilter(filter)).ToList();
+        if (accidents.Count == 0)
+            return new SinistroStatistics();
+
+        var accidentsWithInjuries = accidents.Count(s => s.InjuredPeople);
+        var statistics = new SinistroStatistics
+        {
+            TotalAccidents = accidents.Count,
+            AccidentsWithInjuries = accidentsWithInjuries,
+            AccidentsWithoutInjuries = accidents.Count - accidentsWithInjuries,
+            InjuryRate = Math.Round((double)accidentsWithInjuries / accidents.Count * 100, 2),
+            ByAccidentType = accidents
+                .GroupBy(s => (int)s.SinistroType)
+                .Select(g => new SinistroValueStatistic { Value = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByWeather = accidents
+                .GroupBy(s => (int)s.Weather)
+                .Select(g => new SinistroValueStatistic { Value = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByRoadType = accidents
+                .GroupBy(s => (int)s.RoadType)
+                .Select(g => new SinistroValueStatistic { Value = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByRoadPavementType = accidents
+                .GroupBy(s => (int)s.RoadPavementType)
+                .Select(g => new SinistroValueStatistic { Value = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByGroundType = accidents
+                .GroupBy(s => (int)s.GroundType)
+                .Select(g => new SinistroValueStatistic { Value = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByVehicleType = accidents
+                .SelectMany(s => (s.VehiclesEnvolved ?? []).Select(v => new { AccidentId = s.Id, Value = (int)v.TypeVehicle }))
+                .GroupBy(x => x.Value)
+                .Select(g => new SinistroVehicleStatistic
+                {
+                    Value = g.Key,
+                    AccidentCount = g.Select(x => x.AccidentId).Distinct().Count(),
+                    VehicleCount = g.Count()
+                })
+                .OrderBy(x => x.Value)
+                .ToList(),
+            ByLocation = accidents
+                .GroupBy(s => new { City = s.SinistroAddress?.City, District = s.SinistroAddress?.District })
+                .Select(g => new SinistroLocationStatistic
+                {
+                    City = g.Key.City,
+                    District = g.Key.District,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .ThenBy(x => x.City)
+                .ThenBy(x => x.District)
+                .ToList()
+        };
+
+        statistics.ByPeriod = BuildPeriodStatistics(accidents, filter, groupBy);
+        return statistics;
+    }
+
+    private bool ValidateStatisticsFilter(SinistroStatisticsFilter filter)
+    {
+        var isValid = true;
+
+        if (filter.DateStart.HasValue && filter.DateEnd.HasValue &&
+            filter.DateStart.Value.Date > filter.DateEnd.Value.Date)
+        {
+            Notify("A data inicial não pode ser posterior à data final.");
+            isValid = false;
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.GroupBy) &&
+            !new[] { "day", "week", "month" }.Contains(filter.GroupBy.Trim(), StringComparer.OrdinalIgnoreCase))
+        {
+            Notify("O agrupamento deve ser 'day', 'week' ou 'month'.");
+            isValid = false;
+        }
+
+        if (!IsValidEnum<SinistroType>(filter.SinistroType) ||
+            !IsValidEnum<RoadPavementType>(filter.RoadPavementType) ||
+            !IsValidEnum<RoadType>(filter.RoadType) ||
+            !IsValidEnum<GroundType>(filter.GroundType) ||
+            !IsValidEnum<Weather>(filter.Weather) ||
+            !IsValidEnum<TypeVehicle>(filter.TypeVehicle))
+        {
+            Notify("Um ou mais filtros de enumeração possuem valor inválido.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private static bool IsValidEnum<TEnum>(int? value) where TEnum : struct, Enum =>
+        !value.HasValue || Enum.IsDefined(typeof(TEnum), value.Value);
+
+    private static List<SinistroPeriodStatistic> BuildPeriodStatistics(
+        List<Sinistro> accidents,
+        SinistroStatisticsFilter filter,
+        string groupBy)
+    {
+        var firstDate = filter.DateStart.HasValue
+            ? DateOnly.FromDateTime(filter.DateStart.Value)
+            : accidents.Min(s => DateOnly.FromDateTime(s.Date));
+        var lastDate = filter.DateEnd.HasValue
+            ? DateOnly.FromDateTime(filter.DateEnd.Value)
+            : accidents.Max(s => DateOnly.FromDateTime(s.Date));
+        var firstPeriod = GetPeriodStart(firstDate, groupBy);
+        var lastPeriod = GetPeriodStart(lastDate, groupBy);
+        var counts = accidents
+            .GroupBy(s => GetPeriodStart(DateOnly.FromDateTime(s.Date), groupBy))
+            .ToDictionary(g => g.Key, g => g.Count());
+        var periods = new List<SinistroPeriodStatistic>();
+        var period = firstPeriod;
+
+        while (period <= lastPeriod)
+        {
+            periods.Add(new SinistroPeriodStatistic
+            {
+                PeriodStart = period,
+                Count = counts.GetValueOrDefault(period)
+            });
+
+            if (period == lastPeriod)
+                break;
+
+            period = GetNextPeriod(period, groupBy);
+        }
+
+        return periods;
+    }
+
+    private static DateOnly GetPeriodStart(DateOnly date, string groupBy) => groupBy switch
+    {
+        "week" => date.AddDays(-(((int)date.DayOfWeek + 6) % 7)),
+        "month" => new DateOnly(date.Year, date.Month, 1),
+        _ => date
+    };
+
+    private static DateOnly GetNextPeriod(DateOnly period, string groupBy) => groupBy switch
+    {
+        "week" => period.AddDays(7),
+        "month" => period.AddMonths(1),
+        _ => period.AddDays(1)
+    };
 
     public void Dispose()
     {
