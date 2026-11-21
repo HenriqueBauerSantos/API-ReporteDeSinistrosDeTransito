@@ -92,25 +92,27 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
         if (filter.TypeVehicle.HasValue)
             query = query.Where(s => s.VehiclesEnvolved.Any(v => v.TypeVehicle == (TypeVehicle)filter.TypeVehicle.Value));
 
-        return await query
+        var sinistros = await query
             .Where(s => s.SinistroAddress != null)
-            .Select(s => new SinistroMapMarker
-            {
-                Id = s.Id,
-                Date = s.Date,
-                InjuredPeople = s.InjuredPeople,
-                SinistroType = (int)s.SinistroType,
-                Latitude = s.SinistroAddress!.Latitude,
-                Longitude = s.SinistroAddress.Longitude,
-                Road = s.SinistroAddress.Road,
-                District = s.SinistroAddress.District,
-                City = s.SinistroAddress.City,
-                State = s.SinistroAddress.State,
-                VehicleTypes = s.VehiclesEnvolved != null
-                    ? s.VehiclesEnvolved.Select(v => (int)v.TypeVehicle).Distinct().ToList()
-                    : new List<int>()
-            })
             .ToListAsync();
+
+        return sinistros.Select(s => new SinistroMapMarker
+        {
+            Id = s.Id,
+            Date = s.Date,
+            InjuredPeople = s.InjuredPeople,
+            SinistroType = (int)s.SinistroType,
+            Latitude = s.SinistroAddress!.Latitude,
+            Longitude = s.SinistroAddress.Longitude,
+            Road = s.SinistroAddress.Road,
+            District = s.SinistroAddress.District,
+            City = s.SinistroAddress.City,
+            State = s.SinistroAddress.State,
+            VehicleTypes = s.VehiclesEnvolved?
+                .Select(v => (int)v.TypeVehicle)
+                .Distinct()
+                .ToList() ?? new List<int>()
+        }).ToList();
     }
 
     public async Task<Sinistro> GetSinistroAllData(Guid id)
