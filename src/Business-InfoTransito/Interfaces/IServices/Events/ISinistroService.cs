@@ -11,4 +11,5 @@ public interface ISinistroService : IDisposable
     Task Delete(Guid id, Guid userId);
     Task UpdateSinistroAddress(Sinistro sinistro);
     Task DeleteSolicitation(Guid id, Guid userId);
+    Task<SinistroStatistics> GetStatistics(SinistroStatisticsFilter filter);
 }

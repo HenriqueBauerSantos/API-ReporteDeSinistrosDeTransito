@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Business_InfoTransito.Notifications;
+using System.Collections;
 
 namespace Api_InfoTransito.Controllers;
 
@@ -20,10 +21,23 @@ public abstract class MainController : ControllerBase
         return !_notifier.HasNotification();
     }
 
-    protected ActionResult CustomResponse(object result = null)
+    protected ActionResult CustomResponse(object result = null, string message = null)
     {
         if (ValidOperation())
         {
+            if (result is ICollection collection && collection.Count == 0)
+                message ??= "Nenhum registro encontrado.";
+
+            if (message != null)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message,
+                    Data = result
+                });
+            }
+
             return Ok(new
             {
                 success = true,
@@ -35,6 +49,15 @@ public abstract class MainController : ControllerBase
         {
             success = false,
             errors = _notifier.GetNotifications().Select(n => n.Menssage)
+        });
+    }
+
+    protected ActionResult CustomResponseNotFound(string message = "Nenhum registro encontrado.")
+    {
+        return NotFound(new
+        {
+            success = false,
+            errors = new[] { message }
         });
     }
 

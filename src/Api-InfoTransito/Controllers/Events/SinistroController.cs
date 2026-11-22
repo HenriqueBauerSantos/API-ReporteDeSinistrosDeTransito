@@ -46,8 +46,28 @@ public class SinistroController : MainController
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
+        return CustomResponse(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetAll()));
+    }
 
-        return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetAll()));
+    [ClaimsAuthorize("Sinistros", "VI")]
+    [HttpGet("mapa")]
+    public async Task<IActionResult> GetMapMarkers([FromQuery] SinistroMapFilterDto filterDto)
+    {
+        var filter = _mapper.Map<SinistroMapFilter>(filterDto);
+        var markers = await _sinistroRepository.GetByMapFilter(filter);
+
+        return CustomResponse(_mapper.Map<List<SinistroMapMarkerDto>>(markers));
+    }
+
+    [ClaimsAuthorize("Sinistros", "VI")]
+    [HttpGet("estatisticas")]
+    public async Task<IActionResult> GetStatistics([FromQuery] SinistroStatisticsFilterDto filterDto)
+    {
+        var filter = _mapper.Map<SinistroStatisticsFilter>(filterDto);
+        var statistics = await _sinistroService.GetStatistics(filter);
+        var message = statistics.TotalAccidents == 0 ? "Nenhum registro encontrado." : null;
+
+        return CustomResponse(_mapper.Map<SinistroStatisticsDto>(statistics), message);
     }
 
     [ClaimsAuthorize("Sinistros", "AD")]
@@ -58,12 +78,9 @@ public class SinistroController : MainController
             ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if(userId == null)
-        {
-            NotifyError("O Usuário não encontrado.");
-            return NotFound();
-        }
+            return CustomResponseNotFound("O usuário não foi encontrado.");
 
-        return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetByUserId(userId)));
+        return CustomResponse(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetByUserId(userId)));
     }
 
 
@@ -72,10 +89,10 @@ public class SinistroController : MainController
     public async Task<IActionResult> GetById(Guid id)
     {
         var sinistroDto = await FindSinistro(id);
-  
-        if (sinistroDto == null) return NotFound();
 
-        return Ok(sinistroDto);
+        if (sinistroDto == null) return CustomResponseNotFound();
+
+        return CustomResponse(sinistroDto);
     }
 
     [ClaimsAuthorize("Sinistros", "AD")]
@@ -137,7 +154,7 @@ public class SinistroController : MainController
     {
         var sinistroDto = await FindSinistro(id);
 
-        if (sinistroDto == null) return NotFound();
+        if (sinistroDto == null) return CustomResponseNotFound();
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -150,7 +167,7 @@ public class SinistroController : MainController
     [HttpGet("ListasolicitacaoDeletarSinistro")]
     public async Task<ActionResult<SinistroDto>> RequestList()
     {
-        return Ok(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetSinistrosComSolicitacaoCompleto()));
+        return CustomResponse(_mapper.Map<List<SinistroDto>>(await _sinistroRepository.GetSinistrosComSolicitacaoCompleto()));
     }
 
     [ClaimsAuthorize("Sinistros", "CANEX")]
@@ -159,7 +176,7 @@ public class SinistroController : MainController
     {
         var sinistroDto = await FindSinistro(id);
 
-        if (sinistroDto == null) return NotFound();
+        if (sinistroDto == null) return CustomResponseNotFound();
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

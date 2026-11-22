@@ -16,6 +16,13 @@ public class AutomapperConfig : Profile
         CreateMap<Person, PersonDto>().ReverseMap();
         CreateMap<Vehicle, VehicleDto>().ReverseMap();
         CreateMap<Sinistro, SinistroDto>().ReverseMap();
+        CreateMap<SinistroMapMarker, SinistroMapMarkerDto>().ReverseMap();
+        CreateMap<SinistroStatisticsFilter, SinistroStatisticsFilterDto>().ReverseMap();
+        CreateMap<SinistroStatistics, SinistroStatisticsDto>().ReverseMap();
+        CreateMap<SinistroPeriodStatistic, SinistroPeriodStatisticDto>().ReverseMap();
+        CreateMap<SinistroValueStatistic, SinistroValueStatisticDto>().ReverseMap();
+        CreateMap<SinistroVehicleStatistic, SinistroVehicleStatisticDto>().ReverseMap();
+        CreateMap<SinistroLocationStatistic, SinistroLocationStatisticDto>().ReverseMap();
         CreateMap<SinistroExcludeSolicitation, SinistroExcludeSolicitationDto>().ReverseMap();
 
         CreateMap<PersonAddress, PersonAddressDto>()
@@ -25,5 +32,7 @@ public class AutomapperConfig : Profile
         CreateMap<SinistroAddress, SinistroAddressDto>()
             .IncludeBase<Address, AddressDto>()
             .ReverseMap();
+
+        CreateMap<SinistroMapFilter, SinistroMapFilterDto>().ReverseMap();
     }
 }

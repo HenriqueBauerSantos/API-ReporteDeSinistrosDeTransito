@@ -37,7 +37,7 @@ public static class ApiConfiguration
             options.UseSqlServer(connectionString));
 
 
-        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        builder.Services.AddAutoMapper(config => config.AddProfile<AutomapperConfig>());
 
         return builder;
     }
@@ -60,9 +60,9 @@ public static class ApiConfiguration
 
         app.MapControllers();
 
-        //app.MapControllerRoute(
-        //    name: "default",
-        //    pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
 
         return app;
     }

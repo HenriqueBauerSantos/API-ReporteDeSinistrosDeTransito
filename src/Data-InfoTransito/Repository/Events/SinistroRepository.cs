@@ -1,9 +1,9 @@
-﻿using Business_InfoTransito.Interfaces.IRepositories.Events;
+﻿using Business_InfoTransito.Enums;
+using Business_InfoTransito.Interfaces.IRepositories.Events;
 using Business_InfoTransito.Models.Events;
 using Business_InfoTransito.Models.People;
 using Data_InfoTransito.Context;
 using Microsoft.EntityFrameworkCore;
-using Business_InfoTransito.Enums;
 
 namespace Data_InfoTransito.Repository.Events;
 
@@ -42,6 +42,123 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Sinistro>> GetByStatisticsFilter(SinistroStatisticsFilter filter)
+    {
+        var query = Db.Sinistros
+            .AsNoTracking()
+            .Include(s => s.SinistroAddress)
+            .Include(s => s.VehiclesEnvolved)
+            .AsQueryable();
+
+        if (filter.DateStart.HasValue)
+            query = query.Where(s => s.Date.Date >= filter.DateStart.Value.Date);
+
+        if (filter.DateEnd.HasValue)
+            query = query.Where(s => s.Date.Date <= filter.DateEnd.Value.Date);
+
+        if (filter.InjuredPeople.HasValue)
+            query = query.Where(s => s.InjuredPeople == filter.InjuredPeople.Value);
+
+        if (filter.SinistroType.HasValue)
+            query = query.Where(s => s.SinistroType == (SinistroType)filter.SinistroType.Value);
+
+        if (filter.RoadPavementType.HasValue)
+            query = query.Where(s => s.RoadPavementType == (RoadPavementType)filter.RoadPavementType.Value);
+
+        if (filter.RoadType.HasValue)
+            query = query.Where(s => s.RoadType == (RoadType)filter.RoadType.Value);
+
+        if (filter.GroundType.HasValue)
+            query = query.Where(s => s.GroundType == (GroundType)filter.GroundType.Value);
+
+        if (filter.Weather.HasValue)
+            query = query.Where(s => s.Weather == (Weather)filter.Weather.Value);
+
+        if (filter.TypeVehicle.HasValue)
+            query = query.Where(s => s.VehiclesEnvolved.Any(v => v.TypeVehicle == (TypeVehicle)filter.TypeVehicle.Value));
+
+        if (!string.IsNullOrWhiteSpace(filter.City))
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.City != null && s.SinistroAddress.City.Contains(filter.City));
+
+        if (!string.IsNullOrWhiteSpace(filter.District))
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.District != null && s.SinistroAddress.District.Contains(filter.District));
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<IEnumerable<SinistroMapMarker>> GetByMapFilter(SinistroMapFilter filter)
+    {
+        if (filter == null)
+            filter = new SinistroMapFilter();
+
+        var query = Db.Sinistros
+            .AsNoTracking()
+            .Include(s => s.SinistroAddress)
+            .Include(s => s.VehiclesEnvolved)
+            .AsQueryable();
+
+        if (filter.DateStart.HasValue)
+            query = query.Where(s => s.Date >= filter.DateStart.Value);
+
+        if (filter.DateEnd.HasValue)
+            query = query.Where(s => s.Date <= filter.DateEnd.Value);
+
+        if (filter.InjuredPeople.HasValue)
+            query = query.Where(s => s.InjuredPeople == filter.InjuredPeople.Value);
+
+        if (filter.SinistroType.HasValue)
+            query = query.Where(s => s.SinistroType == (SinistroType)filter.SinistroType.Value);
+
+        if (filter.RoadPavementType.HasValue)
+            query = query.Where(s => s.RoadPavementType == (RoadPavementType)filter.RoadPavementType.Value);
+
+        if (filter.RoadType.HasValue)
+            query = query.Where(s => s.RoadType == (RoadType)filter.RoadType.Value);
+
+        if (filter.GroundType.HasValue)
+            query = query.Where(s => s.GroundType == (GroundType)filter.GroundType.Value);
+
+        if (filter.Weather.HasValue)
+            query = query.Where(s => s.Weather == (Weather)filter.Weather.Value);
+
+        if (filter.MinLatitude.HasValue)
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.Latitude >= filter.MinLatitude.Value);
+
+        if (filter.MaxLatitude.HasValue)
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.Latitude <= filter.MaxLatitude.Value);
+
+        if (filter.MinLongitude.HasValue)
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.Longitude >= filter.MinLongitude.Value);
+
+        if (filter.MaxLongitude.HasValue)
+            query = query.Where(s => s.SinistroAddress != null && s.SinistroAddress.Longitude <= filter.MaxLongitude.Value);
+
+        if (filter.TypeVehicle.HasValue)
+            query = query.Where(s => s.VehiclesEnvolved.Any(v => v.TypeVehicle == (TypeVehicle)filter.TypeVehicle.Value));
+
+        var sinistros = await query
+            .Where(s => s.SinistroAddress != null)
+            .ToListAsync();
+
+        return sinistros.Select(s => new SinistroMapMarker
+        {
+            Id = s.Id,
+            Date = s.Date,
+            InjuredPeople = s.InjuredPeople,
+            SinistroType = (int)s.SinistroType,
+            Latitude = s.SinistroAddress!.Latitude,
+            Longitude = s.SinistroAddress.Longitude,
+            Road = s.SinistroAddress.Road,
+            District = s.SinistroAddress.District,
+            City = s.SinistroAddress.City,
+            State = s.SinistroAddress.State,
+            VehicleTypes = s.VehiclesEnvolved?
+                .Select(v => (int)v.TypeVehicle)
+                .Distinct()
+                .ToList() ?? new List<int>()
+        }).ToList();
+    }
+
     public async Task<Sinistro> GetSinistroAllData(Guid id)
     {
         return await Db.Sinistros
@@ -61,7 +178,7 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .Include(s => s.PeopleEnvolved)
             .Include(s => s.VehiclesEnvolved)
             .Where(s => Db.SinistroExcludeSolicitation
-                .Any(sol => 
+                .Any(sol =>
                         sol.SinistroId == s.Id &&
                         sol.Status == ExclusionStatus.Solicitado))
             .ToListAsync();
