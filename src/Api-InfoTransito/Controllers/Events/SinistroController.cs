@@ -84,11 +84,31 @@ public class SinistroController : MainController
     }
 
 
-    [ClaimsAuthorize("Sinistros", "VI")]
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var sinistroDto = await FindSinistro(id);
+        var hasGeneralAccess = CustomAuthorization.ValidateClaimsUser(HttpContext, "Sinistros", "VI");
+        var hasOwnRecordsAccess = CustomAuthorization.ValidateClaimsUser(HttpContext, "Sinistros", "AD");
+
+        if (!hasGeneralAccess && !hasOwnRecordsAccess)
+            return Forbid();
+
+        SinistroDto? sinistroDto;
+        if (hasGeneralAccess)
+        {
+            sinistroDto = await FindSinistro(id);
+        }
+        else
+        {
+            var userId = User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value
+                ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return CustomResponseNotFound("O usuário não foi encontrado.");
+
+            var sinistro = await _sinistroRepository.GetSinistroAllDataByUser(id, userId);
+            sinistroDto = _mapper.Map<SinistroDto>(sinistro);
+        }
 
         if (sinistroDto == null) return CustomResponseNotFound();
 

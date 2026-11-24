@@ -170,6 +170,17 @@ public class SinistroRepository : Repository<Sinistro>, ISinistroRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<Sinistro?> GetSinistroAllDataByUser(Guid id, string userId)
+    {
+        return await Db.Sinistros
+            .AsNoTracking()
+            .Where(x => x.Id == id && x.UserId == userId)
+            .Include(x => x.SinistroAddress)
+            .Include(x => x.PeopleEnvolved)
+            .Include(x => x.VehiclesEnvolved)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<IEnumerable<Sinistro>> GetSinistrosComSolicitacaoCompleto()
     {
         return await Db.Sinistros
