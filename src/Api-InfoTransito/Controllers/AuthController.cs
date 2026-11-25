@@ -35,15 +35,32 @@ public class AuthController : MainController
 
         var user = new IdentityUser
         {
-            UserName = registerUser.Email,
+            UserName = registerUser.Name,
             Email = registerUser.Email,
             EmailConfirmed = true
         };
 
         var result = await _userManager.CreateAsync(user, registerUser.Password);
 
-        if (result.Succeeded) 
+        if (result.Succeeded)
         {
+            var claimResult = await _userManager.AddClaimAsync(user, new Claim("Sinistros", "AD,"));
+            if (!claimResult.Succeeded)
+            {
+                foreach (var error in claimResult.Errors)
+                {
+                    NotifyError(error.Description);
+                }
+
+                var deleteResult = await _userManager.DeleteAsync(user);
+                foreach (var error in deleteResult.Errors)
+                {
+                    NotifyError(error.Description);
+                }
+
+                return CustomResponse(registerUser);
+            }
+
             await _signInManager.SignInAsync(user, isPersistent: false);
             return CustomResponse(await GenerateJwt(user.Email));
         }
@@ -60,8 +77,15 @@ public class AuthController : MainController
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+        var user = await _userManager.FindByEmailAsync(loginUser.Email);
+        if (user == null)
+        {
+            NotifyError("Usuário ou Senha incorretos");
+            return CustomResponse(loginUser);
+        }
+
         var result = await _signInManager.PasswordSignInAsync(
-            loginUser.Email, loginUser.Password, isPersistent: false, lockoutOnFailure: true);
+            user, loginUser.Password, isPersistent: false, lockoutOnFailure: true);
 
         if (result.Succeeded)
             return CustomResponse(await GenerateJwt(loginUser.Email));
@@ -140,6 +164,7 @@ public class AuthController : MainController
             UserToken = new UserTokenDto
             {
                 Id = user.Id,
+                Name = user.UserName,
                 Email = user.Email,
                 Claims = claims.Select(c => new ClaimDto { Type = c.Type, Value = c.Value})
             }

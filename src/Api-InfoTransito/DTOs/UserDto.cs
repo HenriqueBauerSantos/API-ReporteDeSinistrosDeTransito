@@ -5,6 +5,9 @@ namespace Api_InfoTransito.DTOs;
 public class RegisterUserDto
 {
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
+    public string Name { get; set; }
+
+    [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [EmailAddress(ErrorMessage = "O campo {0} está em formato invalido")]
     public string Email { get; set; }
 
@@ -36,6 +39,7 @@ public class ClaimDto
 public class UserTokenDto
 {
     public string Id { get; set; }
+    public string Name { get; set; }
     public string Email { get; set; }
     public IEnumerable<ClaimDto> Claims { get; set; }
 }
