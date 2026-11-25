@@ -1,6 +1,7 @@
 ﻿using Api_InfoTransito.Data;
 using Data_InfoTransito.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
@@ -28,6 +29,8 @@ public static class ApiConfiguration
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddProblemDetails();
+        builder.Services.AddExceptionHandler<DatabaseTimeoutExceptionHandler>();
 
         //DB
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -44,6 +47,8 @@ public static class ApiConfiguration
 
     public static WebApplication UseApiConfiguration(this WebApplication app)
     {
+        app.UseExceptionHandler();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
